@@ -146,3 +146,219 @@ RELACIONAMENTOS:
   AUTH.USERS (1) ---- (1) PROFILES
   AUTH.USERS (1) ---- (N) STOCK_MOVEMENTS
 
+Descritivo de Casos de Teste de Software
+
+A seguir estão os casos de teste funcionais do sistema, alinhados aos requisitos e ao funcionamento do banco de dados.
+
+CT01 – Cadastrar Produto
+
+Objetivo: Validar o cadastro de um produto.
+Pré-condições: Usuário autenticado.
+Entradas:
+
+name: “Notebook Dell”
+
+category: “notebook”
+
+unit_price: 3500.00
+
+Passos:
+
+Acessar a tela de cadastro de produtos.
+
+Informar os campos obrigatórios.
+
+Confirmar o cadastro.
+
+Resultado esperado:
+
+Produto cadastrado com sucesso.
+
+id gerado automaticamente.
+
+current_stock iniciado em 0.
+
+created_at preenchido automaticamente.
+
+CT02 – Editar Produto
+
+Objetivo: Validar a edição de um produto existente.
+Pré-condições: Produto existente no banco.
+
+Passos:
+
+Acessar a tela de edição.
+
+Modificar os campos desejados.
+
+Salvar alterações.
+
+Resultado esperado:
+
+Dados atualizados corretamente.
+
+Trigger atualiza o campo updated_at.
+
+CT03 – Excluir Produto
+
+Objetivo: Validar a exclusão de um produto.
+Pré-condições: Produto existente.
+
+Passos:
+
+Selecionar o produto.
+
+Acionar o comando de exclusão.
+
+Resultado esperado:
+
+Produto excluído.
+
+Movimentações relacionadas também excluídas (ON DELETE CASCADE).
+
+CT04 – Listar Produtos
+
+Objetivo: Validar a listagem de produtos.
+Pré-condições: Usuário autenticado.
+
+Passos:
+
+Acessar a lista de produtos.
+
+Resultado esperado:
+
+Todos os produtos disponíveis são exibidos.
+
+Regras de segurança RLS aplicadas.
+
+CT05 – Registrar Movimentação de Entrada
+
+Objetivo: Registrar entrada de estoque.
+Pré-condições: Produto existente.
+Entradas:
+
+movement_type: entrada
+
+quantity: 10
+
+Passos:
+
+Acessar a tela de movimentações.
+
+Selecionar produto e inserir dados.
+
+Confirmar.
+
+Resultado esperado:
+
+Movimentação registrada.
+
+Estoque atualizado automaticamente (somado).
+
+CT06 – Registrar Movimentação de Saída
+
+Objetivo: Registrar saída de estoque.
+Pré-condições: Produto com estoque suficiente.
+Entradas:
+
+movement_type: saída
+
+quantity: 5
+
+Resultado esperado:
+
+Movimentação registrada.
+
+Estoque atualizado corretamente (subtraído).
+
+CT07 – Impedir Movimentação com Quantidade Inválida
+
+Objetivo: Validar a regra de quantidade positiva.
+Entradas inválidas:
+
+quantity = 0
+
+quantity = -3
+
+Resultado esperado:
+
+Operação bloqueada.
+
+CHECK do banco impede o registro.
+
+CT08 – Impedir Movimentação de Outro Usuário
+
+Objetivo: Validar política RLS no INSERT.
+Pré-condições: Usuário tenta registrar movimentação com outro user_id.
+
+Resultado esperado:
+
+Inserção bloqueada conforme RLS: auth.uid() = user_id.
+
+CT09 – Criar Perfil Automaticamente ao Criar Usuário
+
+Objetivo: Validar trigger de criação automática de perfil.
+
+Passos:
+
+Criar novo usuário em auth.users.
+
+Resultado esperado:
+
+Registro automático em profiles.
+
+role padrão "user".
+
+CT10 – Editar Apenas o Próprio Perfil
+
+Objetivo: Validar restrição RLS de atualização.
+
+Passos:
+
+Usuário tenta editar o perfil de outro usuário.
+
+Resultado esperado:
+
+Edição bloqueada.
+
+Apenas auth.uid() = id pode editar.
+
+CT11 – Listar Movimentações
+
+Objetivo: Validar exibição de movimentações.
+
+Pré-condições: Movimentações cadastradas.
+
+Resultado esperado:
+
+Usuário autenticado visualiza todas as movimentações.
+
+SELECT permitido pela RLS.
+
+CT12 – Verificar Estoque Mínimo
+
+Objetivo: Validar identificação de produtos abaixo do mínimo.
+
+Pré-condições:
+
+minimum_stock = 10
+
+current_stock = 8
+
+Resultado esperado:
+
+Sistema identifica produto com estoque crítico.
+
+CT13 – Validar datas de criação e atualização
+
+Objetivo: Garantir preenchimento automático de datas.
+
+Passos:
+
+Criar ou atualizar produto, perfil ou movimentação.
+
+Resultado esperado:
+
+created_at preenchido na criação.
+
+updated_at atualizado via trigger.
