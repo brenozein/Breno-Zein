@@ -1,112 +1,189 @@
-1. Lista de Requisitos Funcionais 
+Aqui está o seu **README totalmente estilizado em Markdown**, organizado, padronizado e pronto para ser colado no GitHub.
 
-RF01 – Cadastrar produtos
+---
+
+# 📘 Projeto de Controle de Estoque – README
+
+## 🚀 Instalação e Execução do Projeto
+
+### **Pré-requisitos**
+
+* Node.js + npm (preferencialmente instalados via **nvm**)
+
+### **Passo a passo**
+
+```bash
+# Clone o repositório
+git clone <YOUR_GIT_URL>
+
+# Entre na pasta do projeto
+cd <YOUR_PROJECT_NAME>
+
+# Instale as dependências
+npm i
+
+# Instale o Vite (versão 4)
+npm install vite@v4
+
+# Execute o projeto
+npm run dev
+```
+
+---
+
+## 🧰 Tecnologias utilizadas
+
+* **Vite**
+* **TypeScript**
+* **React**
+* **shadcn-ui**
+* **Tailwind CSS**
+
+---
+
+# 📄 1. Lista de Requisitos Funcionais
+
+### **RF01 – Cadastrar produtos**
+
 O sistema deve permitir o cadastro de produtos contendo nome, categoria, descrição e demais características técnicas.
 
-RF02 – Editar produtos
+### **RF02 – Editar produtos**
+
 O sistema deve permitir a atualização dos dados de um produto já cadastrado.
 
-RF03 – Excluir produtos
+### **RF03 – Excluir produtos**
+
 O sistema deve permitir excluir um produto do estoque.
 
-RF04 – Listar produtos
-O sistema deve permitir que usuários autenticados visualizem todos os produtos cadastrados.
+### **RF04 – Listar produtos**
 
-RF05 – Manter controle automático de estoque
-O sistema deve recalcular automaticamente o estoque atual de um produto a cada movimentação realizada (entrada ou saída).
+Usuários autenticados podem visualizar todos os produtos cadastrados.
 
-RF06 – Registrar movimentações de estoque
-O sistema deve permitir registrar movimentações de estoque do tipo entrada ou saída, vinculadas a um produto.
+### **RF05 – Manter controle automático de estoque**
 
-RF07 – Registrar autor da movimentação
+O estoque atual deve ser atualizado automaticamente conforme movimentações de entrada ou saída.
+
+### **RF06 – Registrar movimentações de estoque**
+
+O sistema deve permitir registrar movimentações do tipo entrada ou saída, vinculadas a um produto.
+
+### **RF07 – Registrar autor da movimentação**
+
 Cada movimentação deve conter o ID do usuário responsável.
 
-RF08 – Validar quantidade positiva
+### **RF08 – Validar quantidade positiva**
+
 O sistema deve aceitar apenas movimentações com quantidade maior que zero.
 
-RF09 – Atualizar estoque automaticamente
+### **RF09 – Atualizar estoque automaticamente**
+
 Ao registrar uma movimentação:
-•	Se entrada, somar ao estoque atual.
-•	Se saída, subtrair do estoque atual.
 
-RF10 – Listar movimentações
-O sistema deve permitir que usuários autenticados visualizem todas as movimentações de estoque.
+* Entrada ➝ soma ao estoque
+* Saída ➝ subtrai do estoque
 
-RF11 – Criar automaticamente perfil de usuário
-Ao criar um usuário na tabela auth.users, o sistema deve gerar automaticamente um perfil em profiles.
+### **RF10 – Listar movimentações**
 
-RF12 – Editar perfil do usuário
-O usuário deve poder alterar apenas seu próprio perfil.
+Usuários autenticados podem visualizar todas as movimentações.
 
-RF13 – Visualizar perfis
-Usuários autenticados devem poder visualizar todos os perfis.
+### **RF11 – Criar automaticamente perfil de usuário**
 
-RF14 – Verificar estoque mínimo
-O sistema deve armazenar um estoque mínimo para cada produto, podendo gerar avisos quando o estoque estiver abaixo do mínimo (implícito pelo campo minimum_stock).
+Ao criar um usuário na tabela `auth.users`, um perfil é criado automaticamente na tabela `profiles`.
 
-RF15 – Registrar data de criação e atualização
-O sistema deve registrar automaticamente os campos created_at e updated_at em produtos, perfis e movimentações.
+### **RF12 – Editar perfil do usuário**
 
-2. DER – Diagrama Entidade-Relacionamento (Texto + Explicação)
+O usuário pode alterar apenas o próprio perfil.
 
-ENTIDADE: Products 
+### **RF13 – Visualizar perfis**
+
+Usuários autenticados podem visualizar todos os perfis.
+
+### **RF14 – Verificar estoque mínimo**
+
+O sistema deve armazenar um estoque mínimo por produto e indicar quando estiver abaixo dele.
+
+### **RF15 – Registrar data de criação e atualização**
+
+Os campos `created_at` e `updated_at` devem ser preenchidos automaticamente.
+
+---
+
+<img width="1159" height="432" src="https://github.com/user-attachments/assets/aa96c0ed-4140-492b-825a-d59a77aec779" />
+
+---
+
+# 📊 2. DER – Diagrama Entidade-Relacionamento
+
+## **ENTIDADE: Products**
+
 Atributos:
-•	id (PK)
-•	name
-•	description
-•	category
-•	voltage
-•	resolution
-•	dimensions
-•	storage
-•	connectivity
-•	minimum_stock
-•	current_stock
-•	unit_price
-•	created_at
-•	updated_at
 
-ENTIDADE: Stock_Movements 
+* id (PK)
+* name
+* description
+* category
+* voltage
+* resolution
+* dimensions
+* storage
+* connectivity
+* minimum_stock
+* current_stock
+* unit_price
+* created_at
+* updated_at
+
+---
+
+## **ENTIDADE: Stock_Movements**
+
 Atributos:
-•	id (PK)
-•	product_id (FK → Products.id)
-•	user_id (FK → auth.users.id)
-•	movement_type
-•	quantity
-•	movement_date
-•	notes
-•	created_at
 
-ENTIDADE: Profiles 
+* id (PK)
+* product_id (FK → Products.id)
+* user_id (FK → auth.users.id)
+* movement_type
+* quantity
+* movement_date
+* notes
+* created_at
+
+---
+
+## **ENTIDADE: Profiles**
+
 Atributos:
-•	id (PK) e (FK → auth.users.id)
-•	full_name
-•	role
-•	create_at
-•	update_at
 
-Relacionamentos
+* id (PK & FK → auth.users.id)
+* full_name
+* role
+* created_at
+* updated_at
 
-1. Products 1—N Stock_Movements
-Um produto pode ter várias movimentações de estoque.
-Products (1) ---------------- (N) Stock_Movements
-Chave estrangeira:
-stock_movements.product_id → products.id
+---
 
-2. Users 1—1 Profiles
-Cada usuário do sistema possui exatamente um perfil.
-auth.users (1) ---------------- (1) Profiles
-Chave estrangeira:
-profiles.id → auth.users.id
+## 🔗 **Relacionamentos**
 
-3. Users 1—N Stock_Movements
+### **1. Products 1 — N Stock_Movements**
+
+Um produto possui várias movimentações.
+`stock_movements.product_id → products.id`
+
+### **2. Users 1 — 1 Profiles**
+
+Cada usuário possui exatamente um perfil.
+`profiles.id → auth.users.id`
+
+### **3. Users 1 — N Stock_Movements**
+
 Um usuário pode registrar várias movimentações.
-auth.users (1) ---------------- (N) Stock_Movements
-Chave estrangeira:
-stock_movements.user_id → auth.users.id
+`stock_movements.user_id → auth.users.id`
 
-DER em texto estruturado
+---
 
+## 📄 DER em texto estruturado
+
+```
 ENTIDADE: PRODUCTS
   - id (PK)
   - name
@@ -133,7 +210,6 @@ ENTIDADE: STOCK_MOVEMENTS
   - notes
   - created_at
 
-
 ENTIDADE: PROFILES
   - id (PK & FK → AUTH.USERS.id)
   - full_name
@@ -145,220 +221,90 @@ RELACIONAMENTOS:
   PRODUCTS (1) ---- (N) STOCK_MOVEMENTS
   AUTH.USERS (1) ---- (1) PROFILES
   AUTH.USERS (1) ---- (N) STOCK_MOVEMENTS
+```
 
-Descritivo de Casos de Teste de Software
+---
 
-A seguir estão os casos de teste funcionais do sistema, alinhados aos requisitos e ao funcionamento do banco de dados.
+# 🧪 Descritivo de Casos de Teste de Software
 
-CT01 – Cadastrar Produto
+### **CT01 – Cadastrar Produto**
 
-Objetivo: Validar o cadastro de um produto.
-Pré-condições: Usuário autenticado.
-Entradas:
+**Objetivo:** Validar o cadastro de um produto.
+**Pré-condição:** Usuário autenticado.
+**Resultado esperado:** Produto é criado com estoque inicial 0 e datas automáticas.
 
-name: “Notebook Dell”
+---
 
-category: “notebook”
+### **CT02 – Editar Produto**
 
-unit_price: 3500.00
+**Objetivo:** Atualizar dados de um produto existente.
+**Resultado esperado:** Campo `updated_at` é atualizado automaticamente.
 
-Passos:
+---
 
-Acessar a tela de cadastro de produtos.
+### **CT03 – Excluir Produto**
 
-Informar os campos obrigatórios.
+**Objetivo:** Remover um produto.
+**Resultado esperado:** Movimentações associadas são removidas (ON DELETE CASCADE).
 
-Confirmar o cadastro.
+---
 
-Resultado esperado:
+### **CT04 – Listar Produtos**
 
-Produto cadastrado com sucesso.
+**Objetivo:** Exibir todos os produtos.
+**Resultado esperado:** Produtos são exibidos conforme regras RLS.
 
-id gerado automaticamente.
+---
 
-current_stock iniciado em 0.
+### **CT05 – Registrar Movimentação de Entrada**
 
-created_at preenchido automaticamente.
+**Resultado esperado:** Estoque aumenta conforme quantidade registrada.
 
-CT02 – Editar Produto
+---
 
-Objetivo: Validar a edição de um produto existente.
-Pré-condições: Produto existente no banco.
+### **CT06 – Registrar Movimentação de Saída**
 
-Passos:
+**Resultado esperado:** Estoque diminui corretamente.
 
-Acessar a tela de edição.
+---
 
-Modificar os campos desejados.
+### **CT07 – Impedir Movimentação com Quantidade Inválida**
 
-Salvar alterações.
+**Resultado esperado:** Quantidade 0 ou negativa deve ser rejeitada pelo banco.
 
-Resultado esperado:
+---
 
-Dados atualizados corretamente.
+### **CT08 – Impedir Movimentação de Outro Usuário**
 
-Trigger atualiza o campo updated_at.
+**Resultado esperado:** RLS impede inserir movimentações com `user_id` diferente do usuário logado.
 
-CT03 – Excluir Produto
+---
 
-Objetivo: Validar a exclusão de um produto.
-Pré-condições: Produto existente.
+### **CT09 – Criar Perfil Automaticamente**
 
-Passos:
+**Resultado esperado:** Trigger cria perfil automaticamente ao criar usuário.
 
-Selecionar o produto.
+---
 
-Acionar o comando de exclusão.
+### **CT10 – Editar Apenas o Próprio Perfil**
 
-Resultado esperado:
+**Resultado esperado:** RLS impede edição de perfis de outros usuários.
 
-Produto excluído.
+---
 
-Movimentações relacionadas também excluídas (ON DELETE CASCADE).
+### **CT11 – Listar Movimentações**
 
-CT04 – Listar Produtos
+**Resultado esperado:** Todas as movimentações são exibidas para usuários autenticados.
 
-Objetivo: Validar a listagem de produtos.
-Pré-condições: Usuário autenticado.
+---
 
-Passos:
+### **CT12 – Verificar Estoque Mínimo**
 
-Acessar a lista de produtos.
+**Resultado esperado:** Sistema indica produtos abaixo do estoque mínimo.
 
-Resultado esperado:
+---
 
-Todos os produtos disponíveis são exibidos.
+### **CT13 – Validar Datas Automáticas**
 
-Regras de segurança RLS aplicadas.
+**Resultado esperado:** `created_at` e `updated_at` são gerados automaticamente via trigger.
 
-CT05 – Registrar Movimentação de Entrada
-
-Objetivo: Registrar entrada de estoque.
-Pré-condições: Produto existente.
-Entradas:
-
-movement_type: entrada
-
-quantity: 10
-
-Passos:
-
-Acessar a tela de movimentações.
-
-Selecionar produto e inserir dados.
-
-Confirmar.
-
-Resultado esperado:
-
-Movimentação registrada.
-
-Estoque atualizado automaticamente (somado).
-
-CT06 – Registrar Movimentação de Saída
-
-Objetivo: Registrar saída de estoque.
-Pré-condições: Produto com estoque suficiente.
-Entradas:
-
-movement_type: saída
-
-quantity: 5
-
-Resultado esperado:
-
-Movimentação registrada.
-
-Estoque atualizado corretamente (subtraído).
-
-CT07 – Impedir Movimentação com Quantidade Inválida
-
-Objetivo: Validar a regra de quantidade positiva.
-Entradas inválidas:
-
-quantity = 0
-
-quantity = -3
-
-Resultado esperado:
-
-Operação bloqueada.
-
-CHECK do banco impede o registro.
-
-CT08 – Impedir Movimentação de Outro Usuário
-
-Objetivo: Validar política RLS no INSERT.
-Pré-condições: Usuário tenta registrar movimentação com outro user_id.
-
-Resultado esperado:
-
-Inserção bloqueada conforme RLS: auth.uid() = user_id.
-
-CT09 – Criar Perfil Automaticamente ao Criar Usuário
-
-Objetivo: Validar trigger de criação automática de perfil.
-
-Passos:
-
-Criar novo usuário em auth.users.
-
-Resultado esperado:
-
-Registro automático em profiles.
-
-role padrão "user".
-
-CT10 – Editar Apenas o Próprio Perfil
-
-Objetivo: Validar restrição RLS de atualização.
-
-Passos:
-
-Usuário tenta editar o perfil de outro usuário.
-
-Resultado esperado:
-
-Edição bloqueada.
-
-Apenas auth.uid() = id pode editar.
-
-CT11 – Listar Movimentações
-
-Objetivo: Validar exibição de movimentações.
-
-Pré-condições: Movimentações cadastradas.
-
-Resultado esperado:
-
-Usuário autenticado visualiza todas as movimentações.
-
-SELECT permitido pela RLS.
-
-CT12 – Verificar Estoque Mínimo
-
-Objetivo: Validar identificação de produtos abaixo do mínimo.
-
-Pré-condições:
-
-minimum_stock = 10
-
-current_stock = 8
-
-Resultado esperado:
-
-Sistema identifica produto com estoque crítico.
-
-CT13 – Validar datas de criação e atualização
-
-Objetivo: Garantir preenchimento automático de datas.
-
-Passos:
-
-Criar ou atualizar produto, perfil ou movimentação.
-
-Resultado esperado:
-
-created_at preenchido na criação.
-
-updated_at atualizado via trigger.
