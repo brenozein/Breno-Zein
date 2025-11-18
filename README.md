@@ -84,3 +84,65 @@ Atributos:
 •	role
 •	create_at
 •	update_at
+
+Relacionamentos
+
+1. Products 1—N Stock_Movements
+Um produto pode ter várias movimentações de estoque.
+Products (1) ---------------- (N) Stock_Movements
+Chave estrangeira:
+stock_movements.product_id → products.id
+
+2. Users 1—1 Profiles
+Cada usuário do sistema possui exatamente um perfil.
+auth.users (1) ---------------- (1) Profiles
+Chave estrangeira:
+profiles.id → auth.users.id
+
+3. Users 1—N Stock_Movements
+Um usuário pode registrar várias movimentações.
+auth.users (1) ---------------- (N) Stock_Movements
+Chave estrangeira:
+stock_movements.user_id → auth.users.id
+
+DER em texto estruturado
+
+ENTIDADE: PRODUCTS
+  - id (PK)
+  - name
+  - description
+  - category
+  - voltage
+  - resolution
+  - dimensions
+  - storage
+  - connectivity
+  - minimum_stock
+  - current_stock
+  - unit_price
+  - created_at
+  - updated_at
+
+ENTIDADE: STOCK_MOVEMENTS
+  - id (PK)
+  - product_id (FK → PRODUCTS.id)
+  - user_id (FK → AUTH.USERS.id)
+  - movement_type
+  - quantity
+  - movement_date
+  - notes
+  - created_at
+
+
+ENTIDADE: PROFILES
+  - id (PK & FK → AUTH.USERS.id)
+  - full_name
+  - role
+  - created_at
+  - updated_at
+
+RELACIONAMENTOS:
+  PRODUCTS (1) ---- (N) STOCK_MOVEMENTS
+  AUTH.USERS (1) ---- (1) PROFILES
+  AUTH.USERS (1) ---- (N) STOCK_MOVEMENTS
+
